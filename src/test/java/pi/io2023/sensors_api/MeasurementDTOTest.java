@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SensorDTOTest {
-    private SensorDTO instance;
+class MeasurementDTOTest {
+    private MeasurementDTO instance;
     @BeforeEach
     void setUp() {
-        instance = new SensorDTO();
+        instance = new MeasurementDTO();
     }
 
     @AfterEach
@@ -20,20 +20,20 @@ class SensorDTOTest {
 
     @Test
     void getTableNameShouldReturnGivenName() {
-        final String expected = "Sensor";
+        final String expected = "Measurement";
 
         assertEquals(expected, instance.getTableName());
     }
 
     @Test
-    void canInstantiateWithParameters() {
-        SensorDTO inst = new SensorDTO("temperature","degC", "room");
+    void canInstantiateWithParameters()
+    {
+        MeasurementDTO obj = new MeasurementDTO(1,100,3.14);
 
-        assertEquals("temperature", inst.getType());
-        assertEquals("degC", inst.getUnit());
-        assertEquals("room", inst.getDescription());
+        assertEquals(1, obj.getSensorId());
+        assertEquals(100, obj.getTimestamp());
+        assertEquals(3.14, obj.getValue(),1e-6);
     }
-
     @Test
     void createdDTOHasIndex0()
     {
@@ -43,8 +43,7 @@ class SensorDTOTest {
     @Test
     void createdSecondDTOHasIndex1()
     {
-        SensorDTO instance2 = new SensorDTO();
-
-        assertEquals(1, instance2.getId());
+        MeasurementDTO instance1 = new MeasurementDTO();
+        assertEquals(1, instance1.getId());
     }
 }
