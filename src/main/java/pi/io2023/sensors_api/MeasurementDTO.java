@@ -4,15 +4,11 @@ import lombok.Data;
 
 @Data
 public class MeasurementDTO extends DTO{
-    Integer id;
     Integer sensorId;
     Integer timestamp;
     Double value;
 
     public MeasurementDTO(Integer sensorId, Integer timestamp, Double value) {
-        // TODO: Move id to parent class
-        this.id = last_id;
-        last_id++;
         this.sensorId = sensorId;
         this.timestamp = timestamp;
         this.value = value;
