@@ -20,6 +20,6 @@ public class SensorDTO implements DTO {
 
     @Override
     public String getTableName() {
-        return "Sensor";
+        return "sensor";
     }
 }
