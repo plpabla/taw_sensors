@@ -3,7 +3,7 @@ package pi.io2023.sensors_api;
 import lombok.Data;
 
 @Data
-public class SensorDTO extends DTO {
+public class SensorDTO implements DTO {
     String type;
     String unit;
     String description;

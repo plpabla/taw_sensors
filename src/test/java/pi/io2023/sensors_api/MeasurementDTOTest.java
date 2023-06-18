@@ -15,7 +15,7 @@ class MeasurementDTOTest {
 
     @AfterEach
     void tearDown() {
-        instance.resetCounter();
+
     }
 
     @Test
@@ -30,20 +30,7 @@ class MeasurementDTOTest {
     {
         MeasurementDTO obj = new MeasurementDTO(1,100,3.14);
 
-        assertEquals(1, obj.getSensorId());
         assertEquals(100, obj.getTimestamp());
         assertEquals(3.14, obj.getValue(),1e-6);
-    }
-    @Test
-    void createdDTOHasIndex0()
-    {
-        assertEquals(0, instance.getId());
-    }
-
-    @Test
-    void createdSecondDTOHasIndex1()
-    {
-        MeasurementDTO instance1 = new MeasurementDTO();
-        assertEquals(1, instance1.getId());
     }
 }
