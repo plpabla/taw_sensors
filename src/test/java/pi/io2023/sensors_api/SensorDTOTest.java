@@ -19,7 +19,7 @@ class SensorDTOTest {
 
     @Test
     void getTableNameShouldReturnGivenName() {
-        final String expected = "Sensor";
+        final String expected = "sensor";
 
         assertEquals(expected, instance.getTableName());
     }

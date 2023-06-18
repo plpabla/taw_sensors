@@ -20,7 +20,7 @@ class MeasurementDTOTest {
 
     @Test
     void getTableNameShouldReturnGivenName() {
-        final String expected = "Measurement";
+        final String expected = "measurement";
 
         assertEquals(expected, instance.getTableName());
     }
