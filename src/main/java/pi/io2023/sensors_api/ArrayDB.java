@@ -20,6 +20,11 @@ public class ArrayDB implements DBInterface{
     public String insert(DTO obj) {
         String tableName = obj.getTableName();
         List<DTO> lst = getCorrespondingList(tableName);
+        if(lst.contains(obj))
+        {
+            throw new IllegalArgumentException("Given object already exists");
+        }
+
         lst.add(obj);
         int idx = lst.indexOf(obj);
         return String.valueOf(idx);

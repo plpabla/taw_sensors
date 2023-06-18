@@ -28,6 +28,17 @@ class ArrayDBTest {
     }
 
     @Test
+    void cannotAddTwoSameItems()
+    {
+        MeasurementDTO meas = new MeasurementDTO(10,0,20.0);
+        instance.insert(meas);
+
+        Throwable exception = assertThrows(IllegalArgumentException.class, ()->instance.insert(meas));
+
+        assertEquals("Given object already exists", exception.getMessage());
+    }
+
+    @Test
     void canAddTwoMeasurementsDTOandGetNextId()
     {
         MeasurementDTO meas = new MeasurementDTO(10,0,20.0);
