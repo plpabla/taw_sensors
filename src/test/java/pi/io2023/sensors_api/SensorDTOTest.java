@@ -15,7 +15,6 @@ class SensorDTOTest {
 
     @AfterEach
     void tearDown() {
-        instance.resetCounter();
     }
 
     @Test
@@ -34,17 +33,4 @@ class SensorDTOTest {
         assertEquals("room", inst.getDescription());
     }
 
-    @Test
-    void createdDTOHasIndex0()
-    {
-        assertEquals(0, instance.getId());
-    }
-
-    @Test
-    void createdSecondDTOHasIndex1()
-    {
-        SensorDTO instance2 = new SensorDTO();
-
-        assertEquals(1, instance2.getId());
-    }
 }
