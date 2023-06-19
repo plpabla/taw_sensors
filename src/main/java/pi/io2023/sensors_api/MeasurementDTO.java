@@ -21,6 +21,6 @@ public class MeasurementDTO implements DTO{
 
     @Override
     public String getTableName() {
-        return "Measurement";
+        return "measurement";
     }
 }
