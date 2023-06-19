@@ -31,14 +31,22 @@ public class ArrayDB implements DBInterface{
     }
 
     @Override
-    public String delete(DTO obj) {
-        return null;
+    public void delete(String tableName, String id) {
+        List<DTO> lst = getCorrespondingList(tableName);
+        lst.remove(Integer.parseInt(id));
     }
 
+    @Override
     public DTO getGivenId(String tableName, String id)
     {
         List<DTO> lst = getCorrespondingList(tableName);
         DTO obj = lst.get(Integer.parseInt(id));
         return obj;
+    }
+
+    @Override
+    public List<DTO> getTable(String tableName)
+    {
+        return getCorrespondingList(tableName);
     }
 }

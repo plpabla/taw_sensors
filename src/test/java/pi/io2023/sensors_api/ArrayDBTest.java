@@ -84,4 +84,33 @@ class ArrayDBTest {
 
         assertEquals("room",retrieved.getDescription());
     }
+
+    @Test
+    void removeFromNonExistentTableThrowsException()
+    {
+        Throwable exception = assertThrows(IllegalArgumentException.class,
+                ()->instance.delete("non-existent", "0"));
+
+        assertEquals("Invalid table name", exception.getMessage());
+    }
+
+    @Test
+    void removeNonExistentIdThrowsException()
+    {
+        Throwable exception = assertThrows(IndexOutOfBoundsException.class,
+                ()->instance.delete("measurement", "42"));
+
+        assertTrue(exception.getMessage().contains("out of bounds"));
+    }
+
+    @Test
+    void canRemoveElementFromGivenTable()
+    {
+        SensorDTO sensor = new SensorDTO("temperature","degC","room");
+        String id = instance.insert(sensor);
+
+        instance.delete(sensor.getTableName(), id);
+
+        assertFalse(instance.getTable(sensor.getTableName()).contains(sensor));
+    }
 }
