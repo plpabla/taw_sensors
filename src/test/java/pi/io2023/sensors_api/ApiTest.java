@@ -32,11 +32,13 @@ class ApiTest {
     void canRegisterSensorAndGetId() throws Exception
     {
         String requestBody = "{\"type\":\"temperature\", \"unit\":\"degC\", \"description\":\"living room\"}";
+        String expectedResponse = "{\"id\":\"0\"}";
+
         mockMvc.perform(MockMvcRequestBuilders.post("/api/sensor")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("{\"id\":\"0\"}"));
+                .andExpect(MockMvcResultMatchers.content().json(expectedResponse));
 
     }
 }
