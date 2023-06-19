@@ -6,7 +6,7 @@ API allows to register sensor and log its measurements
   * `GET` list of sensors. Possible filtering tbd
   * `POST` - register a new sensor, return its id. Parameters:
     * `type`
-    * `units`
+    * `unit`
     * `description`
   * `DELETE` - remove sensor with given `ID`
 * `sensor\{id}`
