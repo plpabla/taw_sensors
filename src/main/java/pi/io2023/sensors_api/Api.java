@@ -14,4 +14,11 @@ public class Api {
     {
         return "pong.";
     }
+
+    @PostMapping("/sensor")
+    public ResponseIdDTO registerSensor(@RequestBody SensorDTO sensor)
+    {
+        ResponseIdDTO resp = new ResponseIdDTO("0");
+        return resp;
+    }
 }
