@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class MeasurementDTO extends DTO{
-    Integer sensorId;
+    String sensorId;
     Integer timestamp;
     Double value;
 
-    public MeasurementDTO(Integer sensorId, Integer timestamp, Double value) {
+    public MeasurementDTO(String sensorId, Integer timestamp, Double value) {
         this.sensorId = sensorId;
         this.timestamp = timestamp;
         this.value = value;
@@ -16,7 +16,7 @@ public class MeasurementDTO extends DTO{
 
     public MeasurementDTO()
     {
-        this(0,0,0.0);
+        this("0",0,0.0);
     }
 
     @Override

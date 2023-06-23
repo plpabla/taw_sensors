@@ -110,4 +110,10 @@ class ApiTest {
                         .andExpect(MockMvcResultMatchers.status().isOk())
                         .andExpect(MockMvcResultMatchers.content().json(expectedResponse));
     }
+
+    @Test
+    void cannotAddMeasurementForNonexistentSensor() throws Exception
+    {
+
+    }
 }
