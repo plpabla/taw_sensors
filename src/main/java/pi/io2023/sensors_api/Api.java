@@ -108,7 +108,7 @@ public class Api {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Integer timestamp = m.getTimestamp();
         Instant instant = Instant.ofEpochSecond(timestamp);
-        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Warsaw"));
         String formattedTimestamp = formatter.format(dateTime);
 
         MeasWithDetailsDTO meas = new MeasWithDetailsDTO(
