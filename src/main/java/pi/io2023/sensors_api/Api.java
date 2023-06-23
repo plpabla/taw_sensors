@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -82,5 +85,38 @@ public class Api {
             }
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping(value="/measurement/{id}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MeasWithDetailsDTO> displayMeasurement(@PathVariable(value="id") String id)
+    {
+        MeasurementDTO m = null;
+        SensorDTO s = null;
+        try {
+            DTO dto;
+            dto = database.getGivenId("measurement", id);
+            m = (MeasurementDTO) dto;
+            dto = database.getGivenId("sensor",m.getSensorId());
+            s = (SensorDTO) dto;
+        } catch (IndexOutOfBoundsException e)
+        {
+            return ResponseEntity.badRequest().build();
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Integer timestamp = m.getTimestamp();
+        Instant instant = Instant.ofEpochSecond(timestamp);
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        String formattedTimestamp = formatter.format(dateTime);
+
+        MeasWithDetailsDTO meas = new MeasWithDetailsDTO(
+                formattedTimestamp,
+                m.getValue(),
+                s.getUnit(),
+                s.getDescription());
+        meas.setId(id);
+        return ResponseEntity.ok(meas);
     }
 }
