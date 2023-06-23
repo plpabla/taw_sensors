@@ -28,7 +28,7 @@ class MeasurementDTOTest {
     @Test
     void canInstantiateWithParameters()
     {
-        MeasurementDTO obj = new MeasurementDTO(1,100,3.14);
+        MeasurementDTO obj = new MeasurementDTO("1",100,3.14);
 
         assertEquals(100, obj.getTimestamp());
         assertEquals(3.14, obj.getValue(),1e-6);

@@ -1,9 +1,10 @@
 package pi.io2023.sensors_api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
-public class SensorDTO implements DTO {
+public class SensorDTO extends DTO {
     String type;
     String unit;
     String description;
@@ -19,7 +20,9 @@ public class SensorDTO implements DTO {
     }
 
     @Override
+    @JsonIgnore
     public String getTableName() {
         return "sensor";
     }
+
 }

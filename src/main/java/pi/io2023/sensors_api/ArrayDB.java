@@ -1,8 +1,13 @@
 package pi.io2023.sensors_api;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
+@Scope("singleton")
 public class ArrayDB implements DBInterface{
     private List<DTO> sensors = new ArrayList<>();
     private List<DTO> measurements = new ArrayList<>();
@@ -48,5 +53,11 @@ public class ArrayDB implements DBInterface{
     public List<DTO> getTable(String tableName)
     {
         return getCorrespondingList(tableName);
+    }
+
+    public void cleanup()
+    {
+        sensors.clear();
+        measurements.clear();
     }
 }

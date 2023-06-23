@@ -20,7 +20,7 @@ class ArrayDBTest {
     @Test
     void canAddMeasurementDTOandGetId()
     {
-        MeasurementDTO meas = new MeasurementDTO(10,0,20.0);
+        MeasurementDTO meas = new MeasurementDTO("10",0,20.0);
 
         String id = instance.insert(meas);
 
@@ -30,7 +30,7 @@ class ArrayDBTest {
     @Test
     void cannotAddTwoSameItems()
     {
-        MeasurementDTO meas = new MeasurementDTO(10,0,20.0);
+        MeasurementDTO meas = new MeasurementDTO("10",0,20.0);
         instance.insert(meas);
 
         Throwable exception = assertThrows(IllegalArgumentException.class, ()->instance.insert(meas));
@@ -41,9 +41,9 @@ class ArrayDBTest {
     @Test
     void canAddTwoMeasurementsDTOandGetNextId()
     {
-        MeasurementDTO meas = new MeasurementDTO(10,0,20.0);
+        MeasurementDTO meas = new MeasurementDTO("10",0,20.0);
         instance.insert(meas);
-        MeasurementDTO meas2 = new MeasurementDTO(100,0,20.0);
+        MeasurementDTO meas2 = new MeasurementDTO("100",0,20.0);
 
         String id = instance.insert(meas2);
 
@@ -65,7 +65,7 @@ class ArrayDBTest {
     {
         SensorDTO s1 = new SensorDTO("temp","x","x");
         SensorDTO s2 = new SensorDTO("temp","x","y");
-        MeasurementDTO m1 = new MeasurementDTO(1,1,1.0);
+        MeasurementDTO m1 = new MeasurementDTO("1",1,1.0);
 
         instance.insert(s1);
         instance.insert(m1);
