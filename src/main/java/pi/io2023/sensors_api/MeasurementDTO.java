@@ -1,5 +1,6 @@
 package pi.io2023.sensors_api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
@@ -20,6 +21,7 @@ public class MeasurementDTO extends DTO{
     }
 
     @Override
+    @JsonIgnore
     public String getTableName() {
         return "measurement";
     }

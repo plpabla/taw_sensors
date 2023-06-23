@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,11 +49,27 @@ public class Api {
         return lst;
     }
 
+    @GetMapping(value = "/measurement",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<DTO> getAllMeasurements()
+    {
+        List<DTO> lst = database.getTable("measurement");
+
+        return lst;
+    }
+
     @PostMapping(value =  "/measurement",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseIdDTO> addMeasurement(@RequestBody MeasurementDTO meas)
     {
+        if(meas.getTimestamp() == 0)
+        {
+            long timestampMs = Instant.now().toEpochMilli();
+            meas.setTimestamp((int)(timestampMs/1000));
+        }
+
         List<DTO> sensors = database.getTable("sensor");
         for(DTO dto : sensors)
         {
@@ -60,6 +77,7 @@ public class Api {
             if (sensor.getId().equals(meas.getSensorId()))
             {
                 String id = database.insert(meas);
+                meas.setId(id);
                 return ResponseEntity.ok(new ResponseIdDTO(id));
             }
         }

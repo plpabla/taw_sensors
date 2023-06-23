@@ -138,4 +138,23 @@ class ApiTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(expectedResponse));
     }
+
+    @Test
+    void canDisplayMeasurementWithCustomTimestamp() throws Exception
+    {
+        String requestBody0 = "{\"type\":\"temperature\", \"unit\":\"deg C\", \"description\":\"living room\"}";
+        String requestBody1 = "{\"sensorId\": \"0\",\"value\": 11.0,\"timestamp\":100}";
+        String expectedResponse = "[{\"id\":\"0\",\"sensorId\":\"0\",\"timestamp\":100,\"value\":11.0}]";
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/sensor")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody0));
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/measurement")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody1));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/measurement")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(expectedResponse));
+    }
 }
