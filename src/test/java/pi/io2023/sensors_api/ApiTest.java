@@ -114,6 +114,28 @@ class ApiTest {
     @Test
     void cannotAddMeasurementForNonexistentSensor() throws Exception
     {
+        String requestBody = "{\"sensorId\": \"0\",\"value\": \"42\"}";
 
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/measurement")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+    }
+
+    @Test
+    void canAddMeasurementForExistingSensor() throws Exception
+    {
+        String requestBody0 = "{\"type\":\"temperature\", \"unit\":\"deg C\", \"description\":\"living room\"}";
+        String requestBody = "{\"sensorId\": \"0\",\"value\": \"0\"}";
+        String expectedResponse = "{\"id\":\"0\"}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/sensor")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody0));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/measurement")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(expectedResponse));
     }
 }

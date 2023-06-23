@@ -3,6 +3,7 @@ package pi.io2023.sensors_api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,7 +27,6 @@ public class Api {
         database.cleanup();
     }
 
-
     @PostMapping(value =  "/sensor",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces=MediaType.APPLICATION_JSON_VALUE)
@@ -46,5 +46,23 @@ public class Api {
         List<DTO> lst = database.getTable("sensor");
 
         return lst;
+    }
+
+    @PostMapping(value =  "/measurement",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseIdDTO> addMeasurement(@RequestBody MeasurementDTO meas)
+    {
+        List<DTO> sensors = database.getTable("sensor");
+        for(DTO dto : sensors)
+        {
+            SensorDTO sensor = (SensorDTO) dto;
+            if (sensor.getId().equals(meas.getSensorId()))
+            {
+                String id = database.insert(meas);
+                return ResponseEntity.ok(new ResponseIdDTO(id));
+            }
+        }
+        return ResponseEntity.badRequest().build();
     }
 }
