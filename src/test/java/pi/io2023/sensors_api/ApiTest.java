@@ -163,7 +163,7 @@ class ApiTest {
     {
         String requestBody0 = "{\"type\":\"temperature\", \"unit\":\"deg C\", \"description\":\"living room\"}";
         String requestBody1 = "{\"sensorId\": \"0\",\"value\": 11.0,\"timestamp\":100}";
-        String expectedResponse = "{\"to\": \"do\"}";
+        String expectedResponse = "{\"id\":\"0\",\"description\":\"living room\",\"timestamp\":\"1970-01-01 01:01:40\",\"value\":11.0,\"unit\":\"deg C\"}";
         mockMvc.perform(MockMvcRequestBuilders.post("/api/sensor")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody0));
@@ -171,7 +171,7 @@ class ApiTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody1));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/measurement/1")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/measurement/0")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(expectedResponse));
