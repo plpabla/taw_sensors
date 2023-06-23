@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
-public class SensorDTO implements DTO {
-    String id;
+public class SensorDTO extends DTO {
     String type;
     String unit;
     String description;
@@ -14,7 +13,6 @@ public class SensorDTO implements DTO {
         this.type = type;
         this.unit = unit;
         this.description = description;
-        this.id = "0";
     }
 
     public SensorDTO() {

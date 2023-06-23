@@ -3,7 +3,7 @@ package pi.io2023.sensors_api;
 import lombok.Data;
 
 @Data
-public class MeasurementDTO implements DTO{
+public class MeasurementDTO extends DTO{
     Integer sensorId;
     Integer timestamp;
     Double value;

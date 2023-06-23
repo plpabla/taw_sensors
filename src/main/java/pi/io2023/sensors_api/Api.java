@@ -33,6 +33,7 @@ public class Api {
     public ResponseIdDTO registerSensor(@RequestBody SensorDTO sensor)
     {
         String id = database.insert(sensor);
+        sensor.setId(id);
         ResponseIdDTO resp = new ResponseIdDTO(id);
         return resp;
     }
