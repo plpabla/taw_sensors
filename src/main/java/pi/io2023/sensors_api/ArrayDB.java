@@ -54,4 +54,10 @@ public class ArrayDB implements DBInterface{
     {
         return getCorrespondingList(tableName);
     }
+
+    public void cleanup()
+    {
+        sensors.clear();
+        measurements.clear();
+    }
 }
